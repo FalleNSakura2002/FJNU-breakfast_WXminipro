@@ -50,7 +50,7 @@ app.get("/api/wx_openid", async (req, res) => {
   }
 });
 
-//一个测试get
+//一个测试get,test
 app.et("/api/user_info", async (req, res) => {
   res.send("测试完成");
 });
