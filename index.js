@@ -50,10 +50,19 @@ app.get("/api/wx_openid", async (req, res) => {
   }
 });
 
+//用于测试插入数据的方法
+app.get("/api/adduser", async (req, res) => {
+  const User_mem1 = await Userdata.create({ username: "就这" });
+});
+
 //一个测试get
 app.get("/api/user_info", async (req, res) => {
-  res.send("测试完成");
+  const users = await Userdata.findAll();
+  res.send(users);
 });
+
+//用于进行小程序登录的后端代码，待补充
+app.get("https://api.weixin.qq.com/sns/jscode2session", async (req, res) => {});
 
 const port = process.env.PORT || 80;
 

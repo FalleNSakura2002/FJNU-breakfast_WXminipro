@@ -20,6 +20,15 @@ const Counter = sequelize.define("Counter", {
   },
 });
 
+// 定义用户数据
+const Userdata = sequelize.define("Userdata", {
+  username: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    defaultValue: "默认值",
+  },
+});
+
 // 数据库初始化方法
 async function init() {
   await Counter.sync({ alter: true });
@@ -29,4 +38,5 @@ async function init() {
 module.exports = {
   init,
   Counter,
+  Userdata,
 };
