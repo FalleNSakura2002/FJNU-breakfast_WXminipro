@@ -1,4 +1,4 @@
-//进行测试
+//进行包的请求
 const path = require("path");
 const express = require("express");
 const cors = require("cors");
@@ -50,7 +50,10 @@ app.get("/api/wx_openid", async (req, res) => {
   }
 });
 
-//
+//一个测试get
+app.et("/api/user_info", async (req, res) => {
+  res.send("测试完成");
+});
 
 const port = process.env.PORT || 80;
 
