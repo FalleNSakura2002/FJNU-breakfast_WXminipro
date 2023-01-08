@@ -52,7 +52,7 @@ app.get("/api/wx_openid", async (req, res) => {
 
 //用于测试插入数据的方法
 app.get("/api/adduser", async (req, res) => {
-  const User_mem1 = await Userdata.create();
+  await Userdata.create();
   res.send("用户添加成功");
 });
 
