@@ -4,6 +4,7 @@ const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
 const { init: initDB, user_flavor } = require("./db");
+const sd = require("silly-datetime");
 
 const logger = morgan("tiny");
 
@@ -47,6 +48,12 @@ app.get("/api/adduser", async (req, res) => {
 
 //用于进行小程序登录的后端代码，待补充
 app.get("https://api.weixin.qq.com/sns/jscode2session", async (req, res) => {});
+
+//请求时间
+app.get("/api/gettime", async (req, res) => {
+  var update = sd.format(new Date(), "YYYY-MM-DD");
+  res.send(update);
+});
 
 const port = process.env.PORT || 80;
 

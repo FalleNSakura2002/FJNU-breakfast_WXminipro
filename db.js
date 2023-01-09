@@ -15,7 +15,7 @@ const sequelize = new Sequelize("nodejs_demo", MYSQL_USERNAME, MYSQL_PASSWORD, {
 const user_flavor = sequelize.define("user_flavor", {
   //记录用户的wxid
   user_id: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.STRING,
     allowNull: false,
     defaultValue: 0,
     primaryKey: true,
