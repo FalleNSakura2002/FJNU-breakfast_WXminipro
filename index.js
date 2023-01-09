@@ -3,7 +3,7 @@ const path = require("path");
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
-const { init: initDB, Counter, Userdata } = require("./db");
+const { init: initDB, user_flavor } = require("./db");
 
 const logger = morgan("tiny");
 
@@ -18,31 +18,6 @@ app.get("/", async (req, res) => {
   res.sendFile(path.join(__dirname, "index.html"));
 });
 
-// 更新计数
-app.post("/api/count", async (req, res) => {
-  const { action } = req.body;
-  if (action === "inc") {
-    await Counter.create();
-  } else if (action === "clear") {
-    await Counter.destroy({
-      truncate: true,
-    });
-  }
-  res.send({
-    code: 0,
-    data: await Counter.count(),
-  });
-});
-
-// 获取计数
-app.get("/api/count", async (req, res) => {
-  const result = await Counter.count();
-  res.send({
-    code: 0,
-    data: result,
-  });
-});
-
 // 小程序调用，获取微信 Open ID
 app.get("/api/wx_openid", async (req, res) => {
   if (req.headers["x-wx-source"]) {
@@ -50,16 +25,24 @@ app.get("/api/wx_openid", async (req, res) => {
   }
 });
 
-//用于测试插入数据的方法
-app.get("/api/adduser", async (req, res) => {
-  await Userdata.create();
-  res.send("用户添加成功");
+// 根据微信OpenID返回个人信息数据
+app.get("/api/get_userinfo", async (req, res) => {
+  userid = req.headers["x-wx-openid"];
+  const userinfo = await user_flavor.findAll({
+    where: {
+      user_id: userid,
+    },
+  });
+  console.log(userinfo);
+  res.send("微信id为" + userinfo[0].dataValues.user_name);
 });
 
-//一个测试get
-app.get("/api/user_info", async (req, res) => {
-  const users = await Userdata.findAll();
-  res.send(users);
+// 根据
+
+//用于测试插入数据的方法
+app.get("/api/adduser", async (req, res) => {
+  await user_flavor.create();
+  res.send("用户添加成功");
 });
 
 //用于进行小程序登录的后端代码，待补充
