@@ -38,6 +38,11 @@ const user_flavor = sequelize.define("user_flavor", {
     allowNull: false,
     defaultValue: "",
   },
+  user_bedroom: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    defaultValue: "",
+  },
 });
 
 // 定义菜品数据
@@ -96,6 +101,12 @@ const store = sequelize.define("store", {
     allowNull: false,
     defaultValue: "",
   },
+  //用于记录餐厅的名称
+  dining_name: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    defaultValue: "",
+  },
 });
 
 //定义每个商铺含有菜品的数据
@@ -137,18 +148,12 @@ const diningroom = sequelize.define("diningroom", {
 const order = sequelize.define("order", {
   //用于记录订单id，同一个id会被某一份订单内的多个食物使用
   order_onlyid: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.STRING,
     allowNull: false,
   },
   //用于记录用户的id
   user_id: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    defaultValue: 0,
-  },
-  //用于记录用户购买的食物的id
-  food_id: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.STRING,
     allowNull: false,
     defaultValue: 0,
   },
@@ -157,7 +162,60 @@ const order = sequelize.define("order", {
     type: DataTypes.DATEONLY,
     allowNull: false,
   },
+  //用于记录用户购买的食物的id
+  food_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    defaultValue: 0,
+  },
+  //用于记录食物名称
+  food_name: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    defaultValue: "",
+  },
   //用于记录用户对某一订单某一食物的评级
+  user_degree: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+  },
+});
+
+//用于存放用户的喜爱食物的表
+const user_favorite = sequelize.define("user_favorite", {
+  //用于记录用户的id
+  user_id: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    defaultValue: 0,
+    primaryKey: true,
+  },
+  //用于记录用户喜爱的食物的id
+  food_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    defaultValue: 0,
+    primaryKey: true,
+  },
+});
+
+//用于记录所有用户评分的历史
+const food_user_degree = sequelize.define("food_user_degree", {
+  //用于记录用户的id
+  user_id: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    defaultValue: 0,
+    primaryKey: true,
+  },
+  //用于记录用户评分的食物的id
+  food_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    defaultValue: 0,
+    primaryKey: true,
+  },
+  //用于记录用户的打分
   user_degree: {
     type: DataTypes.INTEGER,
     allowNull: true,
@@ -172,6 +230,8 @@ async function init() {
   await store_foodlist.sync({ alter: true });
   await diningroom.sync({ alter: true });
   await order.sync({ alter: true });
+  await user_favorite.sync({ alter: true });
+  await food_user_degree.sync({ alter: true });
 }
 
 // 导出初始化方法和模型
@@ -183,4 +243,6 @@ module.exports = {
   store_foodlist,
   diningroom,
   order,
+  user_favorite,
+  food_user_degree,
 };
