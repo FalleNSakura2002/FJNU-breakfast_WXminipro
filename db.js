@@ -28,7 +28,6 @@ const sequelize = new Sequelize("htmlpro3", "root", "FALLcanyue2001", {
   dialect: "mysql",
 });
  */
-
 //定义用户爱好
 const user_flavor = sequelize.define("user_flavor", {
   //记录用户的wxid
@@ -262,7 +261,7 @@ async function init() {
   await store_user.sync({ alter: true });
 }
 
-await diningroom.bulkcreate([
+diningroom.bulkCreate([
   {
     dining_name: "文化街美食城园",
   },
