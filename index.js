@@ -187,9 +187,10 @@ app.get("/store_user_index", async (req, res) => {
   });
 });
 
-//响应更新食物列表的请求
+//响应添加食物列表的请求
 app.post("/food_update", async (req, res) => {
   console.log(req.cookies.user_store_id);
+  console.log(req.body.sellist1);
   var food = [];
   var foodser = "";
   food.push(req.body.option1);

@@ -60,27 +60,19 @@
                     </div>
                     <div class="mb-3 mt-3">
                     <label for="foodseries" class="form-label">食物菜系:</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="foodseries"
-                        placeholder="请输入食物菜系"
-                        name="foodseries"
-                        list="serieslist"
-                        required
-                      />
                       <div class="invalid-feedback">请输入食物菜系！</div>
-                      <datalist id="serieslist">
-                        <option value="鲁菜">
-                        <option value="川菜">
-                        <option value="粤菜">
-                        <option value="湘菜">
-                        <option value="苏菜">
-                        <option value="浙菜">
-                        <option value="闽菜">
-                        <option value="徽菜">
-                        <option value="其他">
-                     </datalist>
+                      <select class="form-select" id="sel1" name="foodseries">
+                        <option>鲁菜</option>
+                        <option>川菜</option>
+                        <option>粤菜</option>
+                        <option>湘菜</option>
+                        <option>苏菜</option>
+                        <option>川菜</option>
+                        <option>浙菜</option>
+                        <option>闽菜</option>
+                        <option>徽菜</option>
+                        <option>其他</option>
+                      </select>
                     </div>
                     
                     <div class="mb-3 mt-3">
@@ -98,20 +90,11 @@
                     </div>
                     <div class="mb-3 mt-3">
                     <label for="foodtype" class="form-label">食物类型:</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        list="typelist"
-                        id="foodtype"
-                        placeholder="请输入食物类型"
-                        name="foodtype"
-                        required
-                      />
+                      <select class="form-select" id="sel1" name="foodtype">
+                        <option>主食</option>
+                        <option>副食</option>
+                      </select>
                       <div class="invalid-feedback">请输入食物类型！</div>
-                      <datalist id="typelist">
-                        <option value="主食">
-                        <option value="副食">
-                     </datalist>
                     </div>
                     <div class="mb-3 mt-3">
                       <label for="foodprice" class="form-label">食物价格:</label>
@@ -180,29 +163,19 @@
                     </div>
                     <div class="mb-3 mt-3">
                     <label for="change_foodseries" class="form-label">食物菜系:</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="change_foodseries"
-                        placeholder="请输入食物菜系"
-                        name="change_foodseries"
-                        list="serieslist"
-                        required
-                      />
-                      <div class="invalid-feedback">请输入食物菜系！</div>
-                      <datalist id="serieslist">
-                        <option value="鲁菜">
-                        <option value="川菜">
-                        <option value="粤菜">
-                        <option value="湘菜">
-                        <option value="苏菜">
-                        <option value="浙菜">
-                        <option value="闽菜">
-                        <option value="徽菜">
-                        <option value="其他">
-                     </datalist>
+                    <select class="form-select" id="sel1" name="change_foodseries">
+                      <option>鲁菜</option>
+                      <option>川菜</option>
+                      <option>粤菜</option>
+                      <option>湘菜</option>
+                      <option>苏菜</option>
+                      <option>川菜</option>
+                      <option>浙菜</option>
+                      <option>闽菜</option>
+                      <option>徽菜</option>
+                      <option>其他</option>
+                    </select>
                     </div>
-                    
                     <div class="mb-3 mt-3">
                     <label for="change_fooddgofsalt" class="form-label">食物风味:&nbsp;</label>
                       <input type="checkbox" class="form-check-input" id="check1" name="change_option1" value="酸">
@@ -218,20 +191,10 @@
                     </div>
                     <div class="mb-3 mt-3">
                     <label for="foodtype" class="form-label">食物类型:</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        list="typelist"
-                        id="change_foodtype"
-                        placeholder="请输入食物类型"
-                        name="change_foodtype"
-                        required
-                      />
-                      <div class="invalid-feedback">请输入食物类型！</div>
-                      <datalist id="typelist">
-                        <option value="主食">
-                        <option value="副食">
-                     </datalist>
+                    <select class="form-select" id="sel1" name="change_foodtype">
+                      <option>主食</option>
+                      <option>副食</option>
+                    </select>
                     </div>
                     <div class="mb-3 mt-3">
                       <label for="foodprice" class="form-label">食物价格:</label>
@@ -244,7 +207,6 @@
                         </div>
                     </div>
                     </div>
-                    
                     <div class="invalid-feedback">请输入食物价格！</div>
                     <div class="d-grid">
                       <button type="submit" class="btn btn-warning btn-lg btn-block">
