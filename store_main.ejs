@@ -258,6 +258,24 @@
             </div>
         </div>
     </div>
+    <!--这是用于退出登录的按钮-->
+    <div class="quit">
+      <form action="/quit" method="POST" class="needs-validation">
+        <div class="d-grid">
+          <button type="submit" class="btn btn-secondary btn btn-block">
+            退出系统
+          </button>
+        </div>
+      </form>
+    </div>
+    <div class="delete">
+      <button type="button" 
+        class="btn btn-danger"
+        data-bs-toggle="modal" 
+        data-bs-target="#deletefood" title="删除食物">
+        删除食物
+       </button>
+    </div>
     <!--这是用于显示商家上架食物-->
     <div class="history">
       <!--这是一个表格，表格被设计为背景半透明状-->

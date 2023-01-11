@@ -42,6 +42,11 @@
   left: 75%;
   top: 20%;
 }
+.quit {
+  position: absolute;
+  left: 85%;
+  top: 20%;
+}
 
 /*这是用于背景图片的效果
 此处手动指定长宽

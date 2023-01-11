@@ -35,7 +35,11 @@ app.use(express.static(__dirname + "/"));
 
 // 首页
 app.get("/", async (req, res) => {
-  res.sendFile(path.join(__dirname, "/store_login.html"));
+  if (req.cookies.user_store_id) {
+    res.redirect("/store_user_index");
+  } else {
+    res.sendFile(path.join(__dirname, "/store_login.html"));
+  }
 });
 
 //商家注册页面
@@ -150,8 +154,6 @@ app.post("/store_login_post", async (req, res) => {
     });
     return;
   }
-  //清理cookie
-  res.clearCookie("user_store_id");
   //记录用户id为cookie
   res.cookie("user_store_id", findstoreuser.dataValues.id);
   //渲染用户页面
@@ -281,6 +283,14 @@ app.post("/food_delete", async (req, res) => {
   });
   //重定向至管理面板
   res.redirect("/store_user_index");
+});
+
+//响应退出操作的请求
+app.post("/quit", async (req, res) => {
+  //清理cookie
+  res.clearCookie("user_store_id");
+  //重定向至首页
+  res.redirect("/");
 });
 
 // 小程序调用，获取微信 Open ID
