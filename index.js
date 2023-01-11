@@ -156,7 +156,9 @@ app.post("/store_login_post", async (req, res) => {
     },
   });
   //记录用户id为cookie
-  res.cookie("user_store_id", findstoreuser.dataValues.id);
+  res.cookie("user_store_id", findstoreuser.dataValues.id, {
+    domain: "express-snor-19436-6-1315192441.sh.run.tcloudbase.com",
+  });
   //渲染用户页面
   res.redirect("/store_user_index");
 });

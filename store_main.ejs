@@ -153,7 +153,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                  <form action="http://localhost/food_change" method="POST" class="needs-validation">
+                  <form action="/food_change" method="POST" class="needs-validation">
                     <div class="mb-3 mt-3">
                       <label for="foodname" class="form-label">食物ID:</label>
                       <input
@@ -273,7 +273,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                  <form action="http://localhost/food_delete" method="POST" class="needs-validation">
+                  <form action="/food_delete" method="POST" class="needs-validation">
                     <div class="mb-3 mt-3">
                       <label for="delete_foodid" class="form-label">食物ID:</label>
                       <input
@@ -310,7 +310,7 @@
         </thead>
         <!--表格的具体内容，第一列为图标，第二列为名称，第三列为介绍-->
         <tbody>
-          <% for(var i=1;i<data.length;i++){ %>
+          <% for(var i=0;i<data.length;i++){ %>
             <tr>
                 <td><%= data[i].id %></td>
                 <td><%= data[i].food_name %></td>
