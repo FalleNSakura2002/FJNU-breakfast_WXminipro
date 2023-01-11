@@ -262,6 +262,39 @@ async function init() {
   await store_user.sync({ alter: true });
 }
 
+await diningroom.bulkcreate([
+  {
+    dining_name: "文化街美食城园",
+  },
+  {
+    dining_name: "百草园",
+  },
+  {
+    dining_name: "翠竹园",
+  },
+  {
+    dining_name: "花香园",
+  },
+  {
+    dining_name: "嘉树园",
+  },
+  {
+    dining_name: "千叶园",
+  },
+  {
+    dining_name: "桃李园",
+  },
+  {
+    dining_name: "随园",
+  },
+  {
+    dining_name: "桃园",
+  },
+  {
+    dining_name: "展园",
+  },
+]);
+
 // 导出初始化方法和模型
 module.exports = {
   init,
