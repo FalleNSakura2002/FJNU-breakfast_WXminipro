@@ -150,36 +150,35 @@ app.post("/store_login_post", async (req, res) => {
     });
     return;
   }
-  const store_foodlist = await foodlist.findAll({
-    where: {
-      store_id: findstoreuser.dataValues.id,
-    },
-  });
+  //清理cookie
+  res.clearCookie("user_store_id");
   //记录用户id为cookie
-  res.cookie("user_store_id", findstoreuser.dataValues.id, {
-    domain: "express-snor-19436-6-1315192441.sh.run.tcloudbase.com",
-  });
+  res.cookie("user_store_id", findstoreuser.dataValues.id);
   //渲染用户页面
   res.redirect("/store_user_index");
 });
 
 //重定向至用户界面
 app.get("/store_user_index", async (req, res) => {
+  //用户查询cookie所属的商铺账号数据
   const findstoreuser = await store_user.findOne({
     where: {
       id: req.cookies.user_store_id,
     },
   });
+  //用户查询cookie所属的商铺的食物清单
   const store_foodlist = await foodlist.findAll({
     where: {
       store_id: req.cookies.user_store_id,
     },
   });
+  //根据食物清单的长度，设置背景
   if (store_foodlist.length < 13) {
     var back_height = 90;
   } else {
     var back_height = 90 + (store_foodlist.length - 13) * 4;
   }
+  //渲染管理面板
   res.render("store_main.ejs", {
     store_name: findstoreuser.dataValues.store_name,
     data: store_foodlist,
@@ -189,15 +188,16 @@ app.get("/store_user_index", async (req, res) => {
 
 //响应添加食物列表的请求
 app.post("/food_update", async (req, res) => {
-  console.log(req.cookies.user_store_id);
-  console.log(req.body.sellist1);
+  //一个用于储存食物取向的矩阵
   var food = [];
-  var foodser = "";
+  //将食物取向存入矩阵
   food.push(req.body.option1);
   food.push(req.body.option2);
   food.push(req.body.option3);
   food.push(req.body.option4);
   food.push(req.body.option5);
+  //将矩阵转化为字符串，并跳过空组
+  var foodser = "";
   for (var i = 0; i < 5; i++) {
     if (food[i] != null) {
       foodser = foodser + food[i] + ",";
@@ -205,11 +205,13 @@ app.post("/food_update", async (req, res) => {
       continue;
     }
   }
+  //将价格拼凑完整
   if (req.body.price_2 == "") {
     var price = req.body.price_1 + "." + 0;
   } else {
     var price = req.body.price_1 + "." + req.body.price_2;
   }
+  //按照数据，创建食物记录
   await foodlist.create({
     food_name: req.body.foodname,
     food_series: req.body.foodseries,
@@ -219,19 +221,22 @@ app.post("/food_update", async (req, res) => {
     food_degree: 80,
     store_id: req.cookies.user_store_id,
   });
+  //重定向至管理面板
   res.redirect("/store_user_index");
 });
 
 //响应更改食物详情的请求
 app.post("/food_change", async (req, res) => {
-  console.log(req.cookies.user_store_id);
+  //一个用于储存食物取向的矩阵
   var food = [];
-  var foodser = "";
+  //将食物取向存入矩阵
   food.push(req.body.change_option1);
   food.push(req.body.change_option2);
   food.push(req.body.change_option3);
   food.push(req.body.change_option4);
   food.push(req.body.change_option5);
+  //将矩阵转化为字符串，并跳过空组
+  var foodser = "";
   for (var i = 0; i < 5; i++) {
     if (food[i] != null) {
       foodser = foodser + food[i] + ",";
@@ -239,11 +244,13 @@ app.post("/food_change", async (req, res) => {
       continue;
     }
   }
+  //将价格拼凑完整
   if (req.body.price_2 == "") {
     var price = req.body.change_price_1 + "." + 0;
   } else {
     var price = req.body.change_price_1 + "." + req.body.change_price_2;
   }
+  //按照数据，修改食物记录
   await foodlist.update(
     {
       food_name: req.body.change_foodname,
@@ -259,17 +266,20 @@ app.post("/food_change", async (req, res) => {
       },
     }
   );
+  //重定向至管理面板
   res.redirect("/store_user_index");
 });
 
 //响应删除食物的请求
 app.post("/food_delete", async (req, res) => {
+  //按照输入的id，删除食物记录
   await foodlist.destroy({
     where: {
       id: req.body.delete_foodid,
       store_id: req.cookies.user_store_id,
     },
   });
+  //重定向至管理面板
   res.redirect("/store_user_index");
 });
 

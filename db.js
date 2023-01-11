@@ -261,6 +261,7 @@ async function init() {
   await store_user.sync({ alter: true });
 }
 
+//初始化餐厅清单
 diningroom.bulkCreate([
   {
     dining_name: "文化街美食城园",
