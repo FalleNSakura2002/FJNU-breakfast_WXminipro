@@ -35,11 +35,7 @@ app.use(express.static(__dirname + "/"));
 
 // 首页
 app.get("/", async (req, res) => {
-  if (req.cookies.user_store_id) {
-    res.redirect("/store_user_index");
-  } else {
-    res.redirect("/store_login.html");
-  }
+  res.redirect("/store_login.html");
 });
 
 //商家注册页面
