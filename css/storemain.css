@@ -1,0 +1,56 @@
+/*这是用于表格容器的效果*/
+.history {
+  position: absolute;
+  width: 60%;
+  height: 20%;
+  left: 20%;
+  top: 30%;
+}
+/*这是用于面板左侧logo的效果*/
+.table-logo {
+  position: absolute;
+  left: 10%;
+  top: 10%;
+  width: 40%;
+  height: 35%;
+}
+.table-logo > h1 {
+  font-size: 400%;
+}
+
+/*这是用于报错信息的效果*/
+.errmessage {
+  position: absolute;
+  left: 65%;
+  top: 40%;
+  width: 40%;
+  height: 35%;
+}
+/*这是用于按钮的效果*/
+.add {
+  position: absolute;
+  left: 65%;
+  top: 20%;
+}
+.change {
+  position: absolute;
+  left: 70%;
+  top: 20%;
+}
+.delete {
+  position: absolute;
+  left: 75%;
+  top: 20%;
+}
+
+/*这是用于背景图片的效果
+此处手动指定长宽
+同时为了使其作为全局背景，设置层级为-99*/
+img {
+  height: 1920;
+  width: 1080;
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  z-index: -99;
+}

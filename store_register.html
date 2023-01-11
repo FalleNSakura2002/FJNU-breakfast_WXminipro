@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <title>虚无的早餐-商家登陆面板</title>
+    <meta name="viewport" content width="device-width," initial-scale="1" />
+    <link rel="stylesheet" href="css/registerpage.css" />
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <script src="js/bootstrap.bundle.min.js"></script>
+  </head>
+  <body>
+    <!--设置全局背景-->
+    <img src="img/background.jpg"></img>
+    <!--这是登录表单的背景-->
+    <div class="table-back"></div>
+    <!--这是左侧面板显示的东西-->
+    <div class="table-logo">
+      <h1>虚&nbsp;无&nbsp;的&nbsp;早&nbsp;餐</h1>
+      <h2>注册面板</h2>
+    </div>
+    <!--这个div模拟垂直分割线-->
+    <div class="midline"></div>
+    <!--这是注册表单-->
+    <div class="register-table">
+      <form action="http://https://express-snor-19436-6-1315192441.sh.run.tcloudbase.com/store_register_post" method="POST">
+        <div class="mb-3 mt-3">
+          <label for="Storename" class="form-label">商家名称:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="Storename"
+            placeholder="请输入您的店名"
+            name="Storename"
+          />
+        </div>
+        <div class="row">
+          <label for="Storeaddress" class="form-label">商家地址:</label>
+          <div class="col">
+            <input type="text" class="form-control" placeholder="请输入餐厅" name="address_dining">
+          </div>
+          <div class="col">
+            <input type="text" class="form-control" placeholder="请输入楼层" name="address_level">
+          </div>
+        </div>
+        <div class="mb-3 mt-3">
+          <label for="email" class="form-label">账号:</label>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            placeholder="请输入账号邮箱地址"
+            name="email"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="pwd" class="form-label">密码:</label>
+          <input
+            type="password"
+            class="form-control"
+            id="pswd"
+            placeholder="请输入密码"
+            name="pswd"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="pwd2" class="form-label">确认密码:</label>
+          <input
+            type="password"
+            class="form-control"
+            id="pswd2"
+            placeholder="请再次输入密码"
+            name="pswd2"
+          />
+        </div>
+        <div class="d-grid">
+          <button type="submit" class="btn btn-success btn-lg btn-block">
+            注册
+          </button>
+        </div>
+      </form>
+    </div>
+    <div class="to-register">
+      已经注册？
+      <a href="/store_login.html" class="btn btn-success btn-sm">立即登录</a>
+    </div>
+  </body>
+</html>

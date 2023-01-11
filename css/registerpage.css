@@ -1,0 +1,81 @@
+/*这是用于第二页表格背景的效果
+主要用于实现高斯模糊效果*/
+.table-back {
+  position: absolute;
+  left: 5%;
+  top: 5%;
+  width: 90%;
+  height: 90%;
+  border: 1px solid #000;
+  background-color: rgba(252, 251, 251, 0.7);
+  filter: blur(2px);
+}
+
+/*这是用于登录表单的位置设计的*/
+.register-table {
+  position: absolute;
+  left: 66%;
+  top: 20%;
+  width: 15%;
+  height: 50%;
+}
+
+/*这是用于面板左侧logo的效果*/
+.table-logo {
+  position: absolute;
+  left: 20%;
+  top: 40%;
+  width: 40%;
+  height: 35%;
+}
+.table-logo > h1 {
+  font-size: 400%;
+}
+
+/*这是用于登录按钮的位置的效果*/
+.d-grid {
+  position: absolute;
+  left: 25%;
+  top: 100%;
+  width: 50%;
+}
+
+/*这是用于表单标题logo的效果*/
+.table-topic > img {
+  position: absolute;
+  left: 15%;
+  top: 30%;
+  width: 30%;
+}
+
+/*这是用于登陆面板中央分割线的效果*/
+.midline {
+  position: absolute;
+  left: 55%;
+  top: 20%;
+  border: 1.2px solid;
+  float: left;
+  height: 65%;
+  color: #8d8787;
+}
+
+/*这是用于注册提示行的效果*/
+.to-register {
+  font-size: 15px;
+  position: absolute;
+  left: 75%;
+  top: 80%;
+  float: left;
+}
+
+/*这是用于背景图片的效果
+此处手动指定长宽
+同时为了使其作为全局背景，设置层级为-99*/
+img {
+  height: 1920;
+  width: 1080;
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  z-index: -99;
+}

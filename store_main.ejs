@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <title>虚无的早餐-商家登陆面板</title>
+    <meta name="viewport" content width="device-width," initial-scale="1" />
+    <link rel="stylesheet" href="css/storemain.css" />
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <style>.table-back {
+      position: absolute;
+      left: 5%;
+      top: 5%;
+      width: 90%;
+      height: <%= height %>;
+      border: 1px solid #000;
+      background-color: rgba(252, 251, 251, 0.7);
+      filter: blur(2px);
+    }</style>
+  </head>
+  <body>
+    <!--设置全局背景-->
+    <img src="img/background.jpg"></img>
+    <!--这是登录表单的背景-->
+    <div class="table-back"></div>
+    <!--这是左侧面板显示的东西-->
+    <div class="table-logo">
+      <h1><%= store_name%></h1>
+      <h2>管理面板</h2>
+    </div>
+    <!--这是用于添加菜品的按钮-->
+    <div class="add">
+      <button type="button" 
+        class="btn btn-success"
+        data-bs-toggle="modal" 
+        data-bs-target="#updatefood" title="添加食物">
+        添加食物
+       </button>
+    </div>
+       <div class="modal fade" id="updatefood" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" >请填写新食物的信息</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form action="http://https://express-snor-19436-6-1315192441.sh.run.tcloudbase.com/food_update" method="POST" class="needs-validation">
+                    <div class="mb-3 mt-3">
+                      <label for="foodname" class="form-label">食物名称:</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="foodname"
+                        placeholder="请输入食物名称"
+                        name="foodname"
+                        required
+                      />
+                      <div class="invalid-feedback">请输入食物名称！</div>
+                    </div>
+                    <div class="mb-3 mt-3">
+                    <label for="foodseries" class="form-label">食物菜系:</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="foodseries"
+                        placeholder="请输入食物菜系"
+                        name="foodseries"
+                        list="serieslist"
+                        required
+                      />
+                      <div class="invalid-feedback">请输入食物菜系！</div>
+                      <datalist id="serieslist">
+                        <option value="鲁菜">
+                        <option value="川菜">
+                        <option value="粤菜">
+                        <option value="湘菜">
+                        <option value="苏菜">
+                        <option value="浙菜">
+                        <option value="闽菜">
+                        <option value="徽菜">
+                        <option value="其他">
+                     </datalist>
+                    </div>
+                    
+                    <div class="mb-3 mt-3">
+                    <label for="fooddgofsalt" class="form-label">食物风味:&nbsp;</label>
+                      <input type="checkbox" class="form-check-input" id="check1" name="option1" value="酸">
+                      <label class="form-check-label">酸</label>
+                      <input type="checkbox" class="form-check-input" id="check2" name="option2" value="辣">
+                      <label class="form-check-label">辣</label>
+                      <input type="checkbox" class="form-check-input" id="check3" name="option3" value="甜">
+                      <label class="form-check-label">甜</label>
+                      <input type="checkbox" class="form-check-input" id="check4" name="option4" value="咸">
+                      <label class="form-check-label">咸</label>
+                      <input type="checkbox" class="form-check-input" id="check5" name="option5" value="鲜">
+                      <label class="form-check-label">鲜</label>
+                    </div>
+                    <div class="mb-3 mt-3">
+                    <label for="foodtype" class="form-label">食物类型:</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        list="typelist"
+                        id="foodtype"
+                        placeholder="请输入食物类型"
+                        name="foodtype"
+                        required
+                      />
+                      <div class="invalid-feedback">请输入食物类型！</div>
+                      <datalist id="typelist">
+                        <option value="主食">
+                        <option value="副食">
+                     </datalist>
+                    </div>
+                    <div class="mb-3 mt-3">
+                      <label for="foodprice" class="form-label">食物价格:</label>
+                        <div class="row">
+                          <div class="col">
+                        <input type="number" class="form-control" placeholder="请输入整数" name="price_1">
+                        </div>
+                        <div class="col">
+                        <input type="number" class="form-control" placeholder="请输入小数" name="price_2">
+                        </div>
+                    </div>
+                    </div>
+                    
+                    <div class="invalid-feedback">请输入食物价格！</div>
+                    <div class="d-grid">
+                      <button type="submit" class="btn btn-success btn-lg btn-block">
+                        上架
+                      </button>
+                    </div>
+                  </form>
+                </div>
+            </div>
+        </div>
+    </div> 
+    <!--这是用于更改菜品的按钮-->
+    <div class="change">
+      <button type="button" 
+        class="btn btn-warning"
+        data-bs-toggle="modal" 
+        data-bs-target="#changefood" title="更改信息">
+        更改信息
+       </button>
+    </div>
+       <div class="modal fade" id="changefood" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" >请填写要更改食物的信息</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form action="http://localhost/food_change" method="POST" class="needs-validation">
+                    <div class="mb-3 mt-3">
+                      <label for="foodname" class="form-label">食物ID:</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="change_foodid"
+                        placeholder="请输入食物ID"
+                        name="change_foodid"
+                        required
+                      />
+                      <div class="invalid-feedback">请输入食物ID！</div>
+                    </div>
+                    <div class="mb-3 mt-3">
+                      <label for="change_foodname" class="form-label">食物名称:</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="change_foodname"
+                        placeholder="请输入食物名称"
+                        name="change_foodname"
+                        required
+                      />
+                      <div class="invalid-feedback">请输入食物名称！</div>
+                    </div>
+                    <div class="mb-3 mt-3">
+                    <label for="change_foodseries" class="form-label">食物菜系:</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="change_foodseries"
+                        placeholder="请输入食物菜系"
+                        name="change_foodseries"
+                        list="serieslist"
+                        required
+                      />
+                      <div class="invalid-feedback">请输入食物菜系！</div>
+                      <datalist id="serieslist">
+                        <option value="鲁菜">
+                        <option value="川菜">
+                        <option value="粤菜">
+                        <option value="湘菜">
+                        <option value="苏菜">
+                        <option value="浙菜">
+                        <option value="闽菜">
+                        <option value="徽菜">
+                        <option value="其他">
+                     </datalist>
+                    </div>
+                    
+                    <div class="mb-3 mt-3">
+                    <label for="change_fooddgofsalt" class="form-label">食物风味:&nbsp;</label>
+                      <input type="checkbox" class="form-check-input" id="check1" name="change_option1" value="酸">
+                      <label class="form-check-label">酸</label>
+                      <input type="checkbox" class="form-check-input" id="check2" name="change_option2" value="辣">
+                      <label class="form-check-label">辣</label>
+                      <input type="checkbox" class="form-check-input" id="check3" name="change_option3" value="甜">
+                      <label class="form-check-label">甜</label>
+                      <input type="checkbox" class="form-check-input" id="check4" name="change_option4" value="咸">
+                      <label class="form-check-label">咸</label>
+                      <input type="checkbox" class="form-check-input" id="check5" name="change_option5" value="鲜">
+                      <label class="form-check-label">鲜</label>
+                    </div>
+                    <div class="mb-3 mt-3">
+                    <label for="foodtype" class="form-label">食物类型:</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        list="typelist"
+                        id="change_foodtype"
+                        placeholder="请输入食物类型"
+                        name="change_foodtype"
+                        required
+                      />
+                      <div class="invalid-feedback">请输入食物类型！</div>
+                      <datalist id="typelist">
+                        <option value="主食">
+                        <option value="副食">
+                     </datalist>
+                    </div>
+                    <div class="mb-3 mt-3">
+                      <label for="foodprice" class="form-label">食物价格:</label>
+                        <div class="row">
+                          <div class="col">
+                        <input type="number" class="form-control" placeholder="请输入整数" name="change_price_1">
+                        </div>
+                        <div class="col">
+                        <input type="number" class="form-control" placeholder="请输入小数" name="change_price_2">
+                        </div>
+                    </div>
+                    </div>
+                    
+                    <div class="invalid-feedback">请输入食物价格！</div>
+                    <div class="d-grid">
+                      <button type="submit" class="btn btn-warning btn-lg btn-block">
+                        更新
+                      </button>
+                    </div>
+                  </form>
+                </div>
+            </div>
+        </div>
+    </div> 
+    <!--这是用于删除功能-->
+    <div class="delete">
+      <button type="button" 
+        class="btn btn-danger"
+        data-bs-toggle="modal" 
+        data-bs-target="#deletefood" title="删除食物">
+        删除食物
+       </button>
+    </div>
+       <div class="modal fade" id="deletefood" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" >请填写要删除食物的ID</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form action="http://localhost/food_delete" method="POST" class="needs-validation">
+                    <div class="mb-3 mt-3">
+                      <label for="delete_foodid" class="form-label">食物ID:</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="delete_foodid"
+                        placeholder="请输入食物ID"
+                        name="delete_foodid"
+                        required
+                      />
+                      <div class="invalid-feedback">请输入食物ID！</div>
+                    </div>
+                    <div class="d-grid">
+                      <button type="submit" class="btn btn-danger btn-lg btn-block">
+                        删除
+                      </button>
+                    </div>
+                  </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--这是用于显示商家上架食物-->
+    <div class="history">
+      <!--这是一个表格，表格被设计为背景半透明状-->
+      <table class="table table-hover">
+        <!--表格的表头，为了让整个表格看起来不会很拥挤，设计了第三列为空列-->
+        <thead>
+          <tr>
+            <th>食物id</th>
+            <th>食物名称</th>
+            <th>食物价格</th>
+          </tr>
+        </thead>
+        <!--表格的具体内容，第一列为图标，第二列为名称，第三列为介绍-->
+        <tbody>
+          <% for(var i=1;i<data.length;i++){ %>
+            <tr>
+                <td><%= data[i].id %></td>
+                <td><%= data[i].food_name %></td>
+                <td><%= data[i].food_price %></td>
+            </tr>
+            <% } %>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
