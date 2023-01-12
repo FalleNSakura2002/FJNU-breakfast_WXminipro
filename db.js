@@ -1,5 +1,5 @@
 const { Sequelize, DataTypes } = require("sequelize");
-
+/*
 //云端调试时需要用的配置
 // 从环境变量中读取数据库配置
 const { MYSQL_USERNAME, MYSQL_PASSWORD, MYSQL_ADDRESS = "" } = process.env;
@@ -11,9 +11,9 @@ const sequelize = new Sequelize("nodejs_demo", MYSQL_USERNAME, MYSQL_PASSWORD, {
   port,
   dialect: "mysql",
 });
-/*  
+*/
 //这一部分需要在上传云端的时候改回去
-// 从环境变量中读取数据库配置 
+// 从环境变量中读取数据库配置
 const {
   MYSQL_USERNAME,
   MYSQL_PASSWORD,
@@ -27,7 +27,6 @@ const sequelize = new Sequelize("htmlpro3", "root", "FALLcanyue2001", {
   port,
   dialect: "mysql",
 });
-*/
 //定义用户爱好
 const user_flavor = sequelize.define("user_flavor", {
   //记录用户的wxid
@@ -55,6 +54,7 @@ const user_flavor = sequelize.define("user_flavor", {
     allowNull: false,
     defaultValue: "",
   },
+  //记录用户居住的宿舍
   user_bedroom: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -249,6 +249,58 @@ const store_user = sequelize.define("store_user", {
   },
 });
 
+async function create_dining() {
+  await diningroom.destroy({
+    where: {},
+  });
+  await diningroom.bulkCreate([
+    {
+      id: 1,
+      dining_name: "文化街美食城",
+    },
+    {
+      id: 2,
+      dining_name: "美美餐厅",
+    },
+    {
+      id: 3,
+      dining_name: "百草园",
+    },
+    {
+      id: 4,
+      dining_name: "翠竹园",
+    },
+    {
+      id: 5,
+      dining_name: "花香园",
+    },
+    {
+      id: 6,
+      dining_name: "嘉树园",
+    },
+    {
+      id: 7,
+      dining_name: "千叶园",
+    },
+    {
+      id: 8,
+      dining_name: "桃李园",
+    },
+    {
+      id: 9,
+      dining_name: "随园",
+    },
+    {
+      id: 10,
+      dining_name: "桃园",
+    },
+    {
+      id: 11,
+      dining_name: "展园",
+    },
+  ]);
+}
+
 // 数据库初始化方法
 async function init() {
   await foodlist.sync({ alter: true });
@@ -259,41 +311,9 @@ async function init() {
   await user_favorite.sync({ alter: true });
   await food_user_degree.sync({ alter: true });
   await store_user.sync({ alter: true });
+  console.log("创建成功");
+  create_dining();
 }
-
-//初始化餐厅清单
-diningroom.bulkCreate([
-  {
-    dining_name: "文化街美食城园",
-  },
-  {
-    dining_name: "百草园",
-  },
-  {
-    dining_name: "翠竹园",
-  },
-  {
-    dining_name: "花香园",
-  },
-  {
-    dining_name: "嘉树园",
-  },
-  {
-    dining_name: "千叶园",
-  },
-  {
-    dining_name: "桃李园",
-  },
-  {
-    dining_name: "随园",
-  },
-  {
-    dining_name: "桃园",
-  },
-  {
-    dining_name: "展园",
-  },
-]);
 
 // 导出初始化方法和模型
 module.exports = {
@@ -306,4 +326,5 @@ module.exports = {
   user_favorite,
   food_user_degree,
   store_user,
+  create_dining,
 };
