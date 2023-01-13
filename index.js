@@ -970,6 +970,7 @@ app.post("/api/creat_dining", async (req, res) => {
       dining_name: "展园",
     },
   ]);
+  res.send("数据库默认值设定成功");
 });
 
 const port = process.env.PORT || 80;
