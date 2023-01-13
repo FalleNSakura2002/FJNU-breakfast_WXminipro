@@ -920,57 +920,57 @@ app.get("/api/gettime", async (req, res) => {
 });
 
 //建立数据库餐厅表单
-app.post("/api/creat_dining", async(req,res){
-    await diningroom.destroy({
-      where: {},
-    });
-    await diningroom.bulkCreate([
-      {
-        id: 1,
-        dining_name: "文化街美食城",
-      },
-      {
-        id: 2,
-        dining_name: "美美餐厅",
-      },
-      {
-        id: 3,
-        dining_name: "百草园",
-      },
-      {
-        id: 4,
-        dining_name: "翠竹园",
-      },
-      {
-        id: 5,
-        dining_name: "花香园",
-      },
-      {
-        id: 6,
-        dining_name: "嘉树园",
-      },
-      {
-        id: 7,
-        dining_name: "千叶园",
-      },
-      {
-        id: 8,
-        dining_name: "桃李园",
-      },
-      {
-        id: 9,
-        dining_name: "随园",
-      },
-      {
-        id: 10,
-        dining_name: "桃园",
-      },
-      {
-        id: 11,
-        dining_name: "展园",
-      },
-    ]);
-})
+app.post("/api/creat_dining", async (req, res) => {
+  await diningroom.destroy({
+    where: {},
+  });
+  await diningroom.bulkCreate([
+    {
+      id: 1,
+      dining_name: "文化街美食城",
+    },
+    {
+      id: 2,
+      dining_name: "美美餐厅",
+    },
+    {
+      id: 3,
+      dining_name: "百草园",
+    },
+    {
+      id: 4,
+      dining_name: "翠竹园",
+    },
+    {
+      id: 5,
+      dining_name: "花香园",
+    },
+    {
+      id: 6,
+      dining_name: "嘉树园",
+    },
+    {
+      id: 7,
+      dining_name: "千叶园",
+    },
+    {
+      id: 8,
+      dining_name: "桃李园",
+    },
+    {
+      id: 9,
+      dining_name: "随园",
+    },
+    {
+      id: 10,
+      dining_name: "桃园",
+    },
+    {
+      id: 11,
+      dining_name: "展园",
+    },
+  ]);
+});
 
 const port = process.env.PORT || 80;
 
