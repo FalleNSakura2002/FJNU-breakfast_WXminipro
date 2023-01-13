@@ -251,7 +251,6 @@ const store_user = sequelize.define("store_user", {
   },
 });
 
-/*
 async function create_dining() {
   await diningroom.destroy({
     where: {},
@@ -303,7 +302,6 @@ async function create_dining() {
     },
   ]);
 }
-*/
 
 // 数据库初始化方法
 async function init() {
@@ -316,7 +314,7 @@ async function init() {
   await food_user_degree.sync({ alter: true });
   await store_user.sync({ alter: true });
   console.log("创建成功");
-  //create_dining();
+  create_dining();
 }
 
 // 导出初始化方法和模型
