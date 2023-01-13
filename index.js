@@ -917,7 +917,7 @@ app.get("/api/gettime", async (req, res) => {
     update = sd.format(new Date(), "YYYY-MM-DD");
     return update;
   }
-  res.end(gettime());
+  res.send(gettime());
 });
 
 const port = process.env.PORT || 80;
