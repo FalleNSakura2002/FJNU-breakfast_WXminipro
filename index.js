@@ -695,7 +695,11 @@ app.get("/api/get_blindbox", async (req, res) => {
           select_food_series_relate = 0.8;
         }
       } else {
-        if (select_food_series == "川菜" || select_food_series == "湘菜") {
+        if (
+          select_food_series == "川菜" ||
+          select_food_series == "湘菜" ||
+          select_food_series == "炸物"
+        ) {
           //如果用户偏爱的菜系与取到的主食菜系不相似，则相关权重为0.8
           select_food_series_relate = 0.8;
         } else {
