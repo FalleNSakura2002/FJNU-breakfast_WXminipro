@@ -1,5 +1,6 @@
 const { Sequelize, DataTypes } = require("sequelize");
 
+//云端调试时需要用的配置
 // 从环境变量中读取数据库配置
 const { MYSQL_USERNAME, MYSQL_PASSWORD, MYSQL_ADDRESS = "" } = process.env;
 
@@ -8,9 +9,25 @@ const [host, port] = MYSQL_ADDRESS.split(":");
 const sequelize = new Sequelize("nodejs_demo", MYSQL_USERNAME, MYSQL_PASSWORD, {
   host,
   port,
-  dialect: "mysql" /* one of 'mysql' | 'mariadb' | 'postgres' | 'mssql' */,
+  dialect: "mysql",
 });
+/*
+//这一部分需要在上传云端的时候改回去
+// 从环境变量中读取数据库配置
+const {
+  MYSQL_USERNAME,
+  MYSQL_PASSWORD,
+  MYSQL_ADDRESS = "localhost:3306",
+} = process.env;
 
+const [host, port] = MYSQL_ADDRESS.split(":");
+
+const sequelize = new Sequelize("htmlpro4", "root", "FALLcanyue2001", {
+  host,
+  port,
+  dialect: "mysql",
+});
+*/
 //定义用户爱好
 const user_flavor = sequelize.define("user_flavor", {
   //记录用户的wxid
@@ -38,6 +55,7 @@ const user_flavor = sequelize.define("user_flavor", {
     allowNull: false,
     defaultValue: "",
   },
+  //记录用户居住的宿舍
   user_bedroom: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -53,6 +71,12 @@ const foodlist = sequelize.define("foodlist", {
     type: DataTypes.STRING,
     allowNull: false,
     defaultValue: "",
+  },
+  //用于记录商铺的id
+  store_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    defaultValue: 0,
   },
   //用于记录食物菜系
   food_series: {
@@ -106,24 +130,6 @@ const store = sequelize.define("store", {
     type: DataTypes.STRING,
     allowNull: false,
     defaultValue: "",
-  },
-});
-
-//定义每个商铺含有菜品的数据
-const store_foodlist = sequelize.define("store_foodlist", {
-  //用于记录商铺的id
-  store_id: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    defaultValue: 0,
-    primaryKey: true,
-  },
-  //用于记录商铺上架的食物的id
-  food_id: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    defaultValue: 0,
-    primaryKey: true,
   },
 });
 
@@ -222,16 +228,38 @@ const food_user_degree = sequelize.define("food_user_degree", {
   },
 });
 
+//用于记录商家账号
+const store_user = sequelize.define("store_user", {
+  //用于记录商铺名称
+  store_name: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    defaultValue: "",
+  },
+  //用于记录账号
+  store_account: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    defaultValue: "",
+  },
+  //用于记录密码
+  store_password: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    defaultValue: "",
+  },
+});
+
 // 数据库初始化方法
 async function init() {
   await foodlist.sync({ alter: true });
   await user_flavor.sync({ alter: true });
   await store.sync({ alter: true });
-  await store_foodlist.sync({ alter: true });
   await diningroom.sync({ alter: true });
   await order.sync({ alter: true });
   await user_favorite.sync({ alter: true });
   await food_user_degree.sync({ alter: true });
+  await store_user.sync({ alter: true });
 }
 
 // 导出初始化方法和模型
@@ -240,9 +268,9 @@ module.exports = {
   foodlist,
   user_flavor,
   store,
-  store_foodlist,
   diningroom,
   order,
   user_favorite,
   food_user_degree,
+  store_user,
 };

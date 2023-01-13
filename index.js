@@ -13,7 +13,7 @@ const {
   store,
   diningroom,
   store_user,
-} = require("./db_test");
+} = require("./db");
 const { Association, Sequelize } = require("sequelize");
 const sd = require("silly-datetime");
 const ejs = require("ejs");
