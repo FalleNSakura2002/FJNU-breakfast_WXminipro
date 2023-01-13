@@ -13,7 +13,7 @@ const {
   store,
   diningroom,
   store_user,
-  create_dining,
+  //create_dining,
 } = require("./db");
 const { Association, Sequelize } = require("sequelize");
 const sd = require("silly-datetime");
@@ -30,7 +30,6 @@ app.use(logger);
 app.set("view engine", "ejs");
 app.set("views", "./");
 app.use(cookieParser());
-create_dining;
 
 //设置静态文件路径
 app.use(express.static(__dirname + "/"));
@@ -929,5 +928,58 @@ async function bootstrap() {
     console.log("启动成功", port);
   });
 }
+
+async function create_dining() {
+  await diningroom.destroy({
+    where: {},
+  });
+  await diningroom.bulkCreate([
+    {
+      id: 1,
+      dining_name: "文化街美食城",
+    },
+    {
+      id: 2,
+      dining_name: "美美餐厅",
+    },
+    {
+      id: 3,
+      dining_name: "百草园",
+    },
+    {
+      id: 4,
+      dining_name: "翠竹园",
+    },
+    {
+      id: 5,
+      dining_name: "花香园",
+    },
+    {
+      id: 6,
+      dining_name: "嘉树园",
+    },
+    {
+      id: 7,
+      dining_name: "千叶园",
+    },
+    {
+      id: 8,
+      dining_name: "桃李园",
+    },
+    {
+      id: 9,
+      dining_name: "随园",
+    },
+    {
+      id: 10,
+      dining_name: "桃园",
+    },
+    {
+      id: 11,
+      dining_name: "展园",
+    },
+  ]);
+}
+create_dining;
 
 bootstrap();
