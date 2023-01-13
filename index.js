@@ -152,15 +152,16 @@ app.post("/store_login_post", async (req, res) => {
     });
     return;
   }
-  /*
+
   //记录用户id为cookie
   //上传服务端时需要更改
   res.cookie("user_store_id", findstoreuser.dataValues.id, {
-    domain: ".express-snor-19436-6-1315192441.sh.run.tcloudbase.com",
+    domain: ".express-1319-26128-6-1316479227.sh.run.tcloudbase.com",
   });
-  */
+  /*
   //本地调试启用
   res.cookie("user_store_id", findstoreuser.dataValues.id);
+  */
 
   //渲染用户页面
   res.redirect("/store_user_index");
