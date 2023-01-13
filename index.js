@@ -920,7 +920,7 @@ app.get("/api/gettime", async (req, res) => {
 });
 
 //建立数据库餐厅表单
-app.post("/api/creat_dining", async(req,res)){
+app.post("/api/creat_dining", async(req,res){
     await diningroom.destroy({
       where: {},
     });
@@ -970,7 +970,7 @@ app.post("/api/creat_dining", async(req,res)){
         dining_name: "展园",
       },
     ]);
-}
+})
 
 const port = process.env.PORT || 80;
 
