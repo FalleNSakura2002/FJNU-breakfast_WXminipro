@@ -314,9 +314,9 @@ app.post("/api/user_login", async (req, res) => {
   });
   console.log(finduser);
   if (finduser != "") {
-    res.redirect("/");
+    res.send("用户已注册");
   } else {
-    res.send("/api/register");
+    res.send("用户未注册");
   }
 });
 
@@ -434,7 +434,7 @@ app.post("/api/rand_orders", async (req, res) => {
     });
   }
   //重定向至下单完成路由
-  res.redirect("/order_ok");
+  res.send("下单完成");
 });
 
 // 根据微信openid，添加个人订单
@@ -459,7 +459,7 @@ app.post("/api/orders", async (req, res) => {
     order_date: date,
   });
   //重定向至下单完成路由
-  res.redirect("/order_ok");
+  res.send("下单完成");
 });
 
 //按照日期读取个人订单的方法
