@@ -326,18 +326,43 @@ app.post("/api/register", async (req, res) => {
   console.log(userid);
   //如果没有检测到openID,即用户没有登录微信
   if (userid == null) {
-    res.redirect("/login");
+    res.send("请先登录");
   } else {
     //检测到OpenID后
     //根据上传参数进行用户创建
-    await user_flavor.create({
-      user_id: userid,
-      user_name: req.query.user_name,
-      user_dgof_salt: req.query.user_dgof_salt,
-      user_series: req.query.user_series,
-      user_bedroom: req.query.user_bedroom,
+    var user_history = await user_flavor.findOne({
+      where: {
+        user_id: userid,
+      },
     });
-    res.send("注册成功");
+    //如果用户没有注册记录
+    if (user_history == null) {
+      //创建新用户
+      await user_flavor.create({
+        user_id: userid,
+        user_name: req.query.user_name,
+        user_dgof_salt: req.query.user_dgof_salt,
+        user_series: req.query.user_series,
+        user_bedroom: req.query.user_bedroom,
+      });
+      res.send("注册成功");
+    } else {
+      //更新用户信息
+      await user_flavor.update(
+        {
+          user_name: req.query.user_name,
+          user_dgof_salt: req.query.user_dgof_salt,
+          user_series: req.query.user_series,
+          user_bedroom: req.query.user_bedroom,
+        },
+        {
+          where: {
+            user_id: userid,
+          },
+        }
+      );
+      res.send("更新完成");
+    }
   }
 });
 
