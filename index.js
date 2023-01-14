@@ -340,20 +340,20 @@ app.post("/api/register", async (req, res) => {
       //创建新用户
       await user_flavor.create({
         user_id: userid,
-        user_name: req.query.user_name,
-        user_dgof_salt: req.query.user_dgof_salt,
-        user_series: req.query.user_series,
-        user_bedroom: req.query.user_bedroom,
+        user_name: req.body.user_name,
+        user_dgof_salt: req.body.user_dgof_salt,
+        user_series: req.body.user_series,
+        user_bedroom: req.body.user_bedroom,
       });
       res.send("注册成功");
     } else {
       //更新用户信息
       await user_flavor.update(
         {
-          user_name: req.query.user_name,
-          user_dgof_salt: req.query.user_dgof_salt,
-          user_series: req.query.user_series,
-          user_bedroom: req.query.user_bedroom,
+          user_name: req.body.user_name,
+          user_dgof_salt: req.body.user_dgof_salt,
+          user_series: req.body.user_series,
+          user_bedroom: req.body.user_bedroom,
         },
         {
           where: {
@@ -473,13 +473,13 @@ app.post("/api/orders", async (req, res) => {
   var orderfoodname = await foodlist.findAll({
     attributes: ["food_name"],
     where: {
-      id: req.query.foodid,
+      id: req.body.foodid,
     },
   });
   await order.create({
     user_id: userid,
     order_onlyid: orderid,
-    food_id: req.query.foodid,
+    food_id: req.body.foodid,
     food_name: orderfoodname[0].dataValues.food_name,
     order_date: date,
   });
@@ -520,9 +520,9 @@ app.post("/api/setdegree", async (req, res) => {
   //读取用户id
   var userid = req.headers["x-wx-openid"];
   //读取用户打分的食物
-  var food_degree_id = req.query.foodid;
+  var food_degree_id = req.body.foodid;
   //读取用户对食物的打分
-  var food_degree_of_user = req.query.fooddegree;
+  var food_degree_of_user = req.body.fooddegree;
   //判断用户是否已经对该食物打过分
   var food_degree_history = await food_user_degree.findOne({
     attributes: ["user_degree"],
