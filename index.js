@@ -906,7 +906,7 @@ app.get("/api/get_blindbox", async (req, res) => {
     var randid = Math.floor(Math.random() * 20);
   }
   var rand_result = food_relate_randlist[randid];
-  res.send(rand_result);
+  res.send(food_relate_randlist);
 });
 
 // 用于查找商铺对应的信息
