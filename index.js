@@ -332,10 +332,10 @@ app.post("/api/register", async (req, res) => {
     //根据上传参数进行用户创建
     await user_flavor.create({
       user_id: userid,
-      user_name: req.body.user_name,
-      user_dgof_salt: req.body.user_dgof_salt,
-      user_series: req.body.user_series,
-      user_bedroom: req.body.user_bedroom,
+      user_name: req.query.user_name,
+      user_dgof_salt: req.query.user_dgof_salt,
+      user_series: req.query.user_series,
+      user_bedroom: req.query.user_bedroom,
     });
     res.send("注册成功");
   }
@@ -409,21 +409,26 @@ app.get("/api/myfavorite", async (req, res) => {
 app.post("/api/rand_orders", async (req, res) => {
   //读取用户id
   var userid = req.headers["x-wx-openid"];
+  console.log(req.query.foodid);
   //根据用户id，生成订单号
   var orderid = userid + Math.floor(Math.random() * 999999999);
   var date = sd.format(new Date(), "YYYY-MM-DD");
   //在同一订单号下，循环写入数据至数据库
-  for (var i = 0; req.body.foodid[i] != "" && req.body.foodid[i] != null; i++) {
+  for (
+    var i = 0;
+    req.query.foodid[i] != "" && req.query.foodid[i] != null;
+    i++
+  ) {
     var foodname = await foodlist.findAll({
       attributes: ["food_name"],
       where: {
-        id: req.body.foodid[i],
+        id: req.query.foodid[i],
       },
     });
     await order.create({
       user_id: userid,
       order_onlyid: orderid,
-      food_id: req.body.foodid[i],
+      food_id: req.query.foodid[i],
       food_name: foodname[0].dataValues.food_name,
       order_date: date,
     });
@@ -443,13 +448,13 @@ app.post("/api/orders", async (req, res) => {
   var orderfoodname = await foodlist.findAll({
     attributes: ["food_name"],
     where: {
-      id: req.body.foodid,
+      id: req.query.foodid,
     },
   });
   await order.create({
     user_id: userid,
     order_onlyid: orderid,
-    food_id: req.body.foodid,
+    food_id: req.query.foodid,
     food_name: orderfoodname[0].dataValues.food_name,
     order_date: date,
   });
@@ -490,9 +495,9 @@ app.post("/api/setdegree", async (req, res) => {
   //读取用户id
   var userid = req.headers["x-wx-openid"];
   //读取用户打分的食物
-  var food_degree_id = req.body.foodid;
+  var food_degree_id = req.query.foodid;
   //读取用户对食物的打分
-  var food_degree_of_user = req.body.fooddegree;
+  var food_degree_of_user = req.query.fooddegree;
   //判断用户是否已经对该食物打过分
   var food_degree_history = await food_user_degree.findOne({
     attributes: ["user_degree"],
@@ -575,31 +580,6 @@ app.get("/api/getavgdegree", async (req, res) => {
   res.send(degree);
 });
 
-//方便写入餐厅数据的接口
-app.post("/dining_id", async (req, res) => {
-  await store.creat({
-    dining_name: req.body.diningname,
-    address: req.body.diningaddress,
-  });
-  res.send("餐厅注册完成！");
-});
-
-//方便写入商铺数据的接口
-app.post("/store_id", async (req, res) => {
-  diningname = await diningroom.findOne({
-    attributes: ["dining_name"],
-    where: {
-      id: req.body.diningid,
-    },
-  });
-  await store.creat({
-    store_name: req.body.storename,
-    diningroom_id: req.body.diningid,
-    dining_name: diningname,
-  });
-  res.send("商铺注册完成！");
-});
-
 // 用于计算盲盒
 app.get("/api/get_blindbox", async (req, res) => {
   //获取用户微信ID
@@ -642,6 +622,7 @@ app.get("/api/get_blindbox", async (req, res) => {
       user_id: userid,
     },
   });
+  console.log(order_date);
   //根据有订单的日期，回溯每一个日期的选择
   var order_threedays = [];
   for (i = 0; order_date[i] != null; i++) {
