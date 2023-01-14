@@ -909,6 +909,17 @@ app.get("/api/get_blindbox", async (req, res) => {
   res.send(rand_result);
 });
 
+// 用于查找商铺对应的信息
+app.get("/api/get_store_dining", async (req, res) => {
+  //根据请求的商铺Id查找对应的信息
+  var storeinfo = await store.findOne({
+    where: {
+      id: req.query.storeid,
+    },
+  });
+  res.send(storeinfo);
+});
+
 // 用于进行小程序登录的后端代码，待补充
 app.get("https://api.weixin.qq.com/sns/jscode2session", async (req, res) => {});
 
