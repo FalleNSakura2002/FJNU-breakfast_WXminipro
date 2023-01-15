@@ -512,7 +512,7 @@ app.get("/api/orderhistory", async (req, res) => {
     });
     order_fivedays.push(orderdate);
   }
-  res.send(order_fivedays[0][2].food_name);
+  res.send(order_fivedays);
 });
 
 //用户对订单打分
@@ -579,8 +579,8 @@ app.get("/api/getuserdegree", async (req, res) => {
   }
 });
 
-//获取某个食物的平均评分
-app.get("/api/getavgdegree", async (req, res) => {
+//根据用户输入的评分,更新某个食物的平均评分
+app.get("/api/setfooddegree", async (req, res) => {
   //读取读取平均分的食物的id
   var food_degree_id = req.query.foodid;
   //根据该id获取所有打分记录，并计算平均分
@@ -603,6 +603,21 @@ app.get("/api/getavgdegree", async (req, res) => {
     }
   );
   res.send(degree);
+});
+
+// 获取菜品的评分
+app.get("/api/get_food_degree", async (req, res) => {
+  //获取要读取评分的食物的ID
+  var find_food_id = req.query.foodid;
+  //根据id查询数据库
+  var fooddegree = await foodlist.findOne({
+    attributes: ["food_degree"],
+    where: {
+      id: find_food_id,
+    },
+  });
+  //返回评分结果
+  res.send(fooddegree);
 });
 
 // 用于计算盲盒
