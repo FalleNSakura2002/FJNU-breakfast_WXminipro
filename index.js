@@ -556,6 +556,18 @@ app.post("/api/setdegree", async (req, res) => {
   }
 });
 
+//获取某个食物的价格
+app.get("/api/getfoodprice", async (req, res) => {
+  var food_price_id = req.query.foodid;
+  var find_price = await foodlist.findOne({
+    attributes: ["food_price"],
+    where: {
+      id: food_price_id,
+    },
+  });
+  res.send(find_price);
+});
+
 //获取用户对某个食物的打分
 app.get("/api/getuserdegree", async (req, res) => {
   //读取用户id
