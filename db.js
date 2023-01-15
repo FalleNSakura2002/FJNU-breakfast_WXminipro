@@ -1,5 +1,4 @@
 const { Sequelize, DataTypes } = require("sequelize");
-/*
 //云端调试时需要用的配置
 // 从环境变量中读取数据库配置
 const { MYSQL_USERNAME, MYSQL_PASSWORD, MYSQL_ADDRESS = "" } = process.env;
@@ -11,7 +10,7 @@ const sequelize = new Sequelize("nodejs_demo", MYSQL_USERNAME, MYSQL_PASSWORD, {
   port,
   dialect: "mysql",
 });
-*/
+/*
 //这一部分需要在上传云端的时候改回去
 // 从环境变量中读取数据库配置
 const {
@@ -27,7 +26,7 @@ const sequelize = new Sequelize("htmlpro3", "root", "FALLcanyue2001", {
   port,
   dialect: "mysql",
 });
-
+*/
 //定义用户爱好
 const user_flavor = sequelize.define("user_flavor", {
   //记录用户的wxid
