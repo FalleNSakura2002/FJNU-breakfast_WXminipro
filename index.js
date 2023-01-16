@@ -520,9 +520,9 @@ app.post("/api/setdegree", async (req, res) => {
   //读取用户id
   var userid = req.headers["x-wx-openid"];
   //读取用户打分的食物
-  var food_degree_id = req.body.foodid;
+  var food_degree_id = req.query.foodid;
   //读取用户对食物的打分
-  var food_degree_of_user = req.body.fooddegree;
+  var food_degree_of_user = req.query.fooddegree;
   //判断用户是否已经对该食物打过分
   var food_degree_history = await food_user_degree.findOne({
     attributes: ["user_degree"],
