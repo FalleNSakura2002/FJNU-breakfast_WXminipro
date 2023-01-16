@@ -15,12 +15,15 @@ const {
   store_user,
 } = require("./db");
 const { Association, Sequelize } = require("sequelize");
+//使用sd,用于快速设置时间
 const sd = require("silly-datetime");
+//使用ejs,用于渲染前端界面
 const ejs = require("ejs");
+//使用cookie-parser,用于设置Cookie
 const cookieParser = require("cookie-parser");
 
 const logger = morgan("tiny");
-
+//建立服务器连接
 const app = express();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -33,22 +36,22 @@ app.use(cookieParser());
 //设置静态文件路径
 app.use(express.static(__dirname + "/"));
 
-// 首页
+// 首页路由
 app.get("/", async (req, res) => {
   res.redirect("/store_login.html");
 });
 
-//商家注册页面
+// 商家注册页面路由
 app.get("/store_register", async (req, res) => {
   res.sendFile(path.join(__dirname, "/store_register.html"));
 });
 
-//商家登录页面
+// 商家登录页面路由
 app.get("/store/login", async (req, res) => {
   res.redirect("/store_login.html");
 });
 
-//获取商家注册信息
+// 获取商家注册信息,用于注册商家
 app.post("/store_register_post", async (req, res) => {
   //判断用户输入的注册信息是否有误
   if (
@@ -150,16 +153,15 @@ app.post("/store_login_post", async (req, res) => {
     });
     return;
   }
-  /*
+
   //记录用户id为cookie
   //上传服务端时需要更改
   res.cookie("user_store_id", findstoreuser.dataValues.id, {
     domain: ".express-1319-26128-6-1316479227.sh.run.tcloudbase.com",
   });
-  */
 
   //本地调试启用
-  res.cookie("user_store_id", findstoreuser.dataValues.id);
+  //res.cookie("user_store_id", findstoreuser.dataValues.id);
 
   //渲染用户页面
   res.redirect("/store_user_index");
@@ -508,6 +510,7 @@ app.get("/api/orderhistory", async (req, res) => {
       attributes: ["order_date", "food_name", "food_id"],
       where: {
         order_date: order_date[i].dataValues.order_date,
+        user_id: userid,
       },
     });
     order_fivedays.push(orderdate);
@@ -960,7 +963,7 @@ app.get("/api/gettime", async (req, res) => {
 });
 
 //建立数据库餐厅表单
-app.post("/api/creat_dining", async (req, res) => {
+app.post("/creat_dining", async (req, res) => {
   await diningroom.destroy({
     where: {},
   });
@@ -968,46 +971,57 @@ app.post("/api/creat_dining", async (req, res) => {
     {
       id: 1,
       dining_name: "文化街美食城",
+      address: "119.209144,26.034297",
     },
     {
       id: 2,
       dining_name: "美美餐厅",
+      address: "119.209144,26.034297",
     },
     {
       id: 3,
       dining_name: "百草园",
+      address: "119.207583,26.030523",
     },
     {
       id: 4,
       dining_name: "翠竹园",
+      address: "119.20857,26.032364",
     },
     {
       id: 5,
       dining_name: "花香园",
+      address: "119.207583,26.030523",
     },
     {
       id: 6,
       dining_name: "嘉树园",
+      address: "119.207186,26.034572",
     },
     {
       id: 7,
       dining_name: "千叶园",
+      address: "119.209144,26.034297",
     },
     {
       id: 8,
       dining_name: "桃李园",
+      address: "119.207186,26.034572",
     },
     {
       id: 9,
       dining_name: "随园",
+      address: "119.211493,26.021726",
     },
     {
       id: 10,
       dining_name: "桃园",
+      address: "119.207186,26.034572",
     },
     {
       id: 11,
       dining_name: "展园",
+      address: "119.211493,26.021726",
     },
   ]);
   res.send("数据库默认值设定成功");
