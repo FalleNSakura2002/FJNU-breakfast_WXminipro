@@ -141,6 +141,268 @@
 
 ## 小程序端 API 文档
 
+### `POST /api/register`
+
+用于跳转注册或更新个人数据接口
+
+#### 请求参数
+
+- `x-wx-openid`：微信 OpenID
+- `user_name`：用户名
+- `user_dgof_salt`：用户偏爱风味
+- `user_series`：用户偏爱菜系
+- `user_bedroom`：用户居住宿舍楼
+
+#### 响应结果
+
+- `注册成功`：用户首次登录，创建完成
+- `更新完成`：用户非首次登录，更新完成
+- `请先登录`：未获取到微信 OpenID
+
+### `POST /api/user_login`
+
+检测用户是否是第一次登录的接口
+
+#### 请求参数
+
+- `x-wx-openid`：微信 OpenID
+
+#### 响应结果
+
+- `用户未注册`：用户首次登录
+- `用户已注册`：用户非首次登录
+
+### `GET /api/get_userinfo`
+
+获取个人爱好页面的数据的接口
+
+#### 请求参数
+
+- `x-wx-openid`：微信 OpenID
+
+#### 响应结果
+
+- `userinfo`：一个储存有个人信息的键值对
+
+#### 结果字段
+
+- `user_name`：用户昵称
+- `user_dgof_salt`：用户偏好风味
+- `user_series`：用户偏好菜系
+- `user_bedroom`：用户居住宿舍
+
+### `GET /api/myfavorite`
+
+获取个人收藏菜品的数据
+
+#### 请求参数
+
+- `x-wx-openid`：微信 OpenID
+
+#### 响应结果
+
+- `favorite_food_alldata`：一个储存有收藏菜品信息的二维键值对
+
+#### 结果说明
+
+结果为一个二维数组，需要通过 favorite_food_alldata[j][i]来读取
+
+favorite_food_alldata[0][i]
+
+- `food_name`：食物名称
+- `food_id`：食物 id
+- `food_degree`：食物评分
+- `food_price`：食物价格
+
+favorite_food_alldata[1][i]
+
+- `store_name`：商铺名称
+- `dining_name`：餐厅名称
+
+### `POST /api/rand_orders`
+
+下单盲盒订单组与推荐订单组的数据接口
+
+#### 请求参数
+
+- `x-wx-openid`：微信 OpenID
+- `foodid[i]`：下单的三个食物 id
+
+#### 响应结果
+
+- `下单完成`：结果记录成功
+
+### `POST /api/orders`
+
+下单单个食物的数据接口
+
+#### 请求参数
+
+- `x-wx-openid`：微信 OpenID
+- `foodid`：下单的食物
+
+#### 响应结果
+
+- `下单完成`：结果记录成功
+
+### `GET /api/orderhistory`
+
+查询个人的过去五次历史订单
+
+#### 请求参数
+
+- `x-wx-openid`：微信 OpenID
+
+#### 响应结果
+
+- `order_fivedays`：一个记录用户数据的二维数组键值对
+
+#### 结果说明
+
+结果为一个二维数组
+
+- `order_fivedays[i]`：查询第 i 天的记录(倒序)
+- `order_fivedays[i][j]`：第 i 天的记录中的第 j 个菜品
+
+结果字段有
+
+- `order_date`：订单日期
+- `food_name`：食物名称
+- `food_id`：食物 id
+
+### `POST /api/setdegree`
+
+上传用户对某食品的打分的接口
+
+#### 请求参数
+
+- `x-wx-openid`：微信 OpenID
+- `foodid`：被打分的食物的 id
+- `fooddegree`：对该食物的打分(0-100)
+
+#### 响应结果
+
+- `评分完成`：用户首次打分
+- `更新完成`：用户再次打分
+
+### `GET /api/getuserdegree`
+
+获取用户对某食物的打分的接口
+
+#### 请求参数
+
+- `x-wx-openid`：微信 OpenID
+- `foodid`：被打分的食物的 id
+
+#### 响应结果
+
+- `没有记录`：用户从未打分
+- `userdegree`：一个包含打分的键值对
+
+#### 结果说明
+
+- `user_degree` 获取该食物的分数
+
+### `GET /api/setfooddegree`
+
+更新某个食物的平均评分的接口
+
+#### 请求参数
+
+- `x-wx-openid`：微信 OpenID
+- `foodid`：被打分的食物的 id
+
+#### 响应结果
+
+- `degree`：一个包含平均分的键值对
+
+#### 结果说明
+
+- `avg_degree`：食物的平均分
+
+### `GET /api/get_store_dining`
+
+获取某店铺对应的信息的接口
+
+#### 请求参数
+
+- `storeid`：要查询店铺的 id
+
+#### 响应结果
+
+- `storeinfo`：一个包含店铺信息的键值对
+
+#### 结果说明
+
+- `id`：店铺 id
+- `store_name`：店铺名称
+- `diningroom_id`：店铺所在的餐厅的 id
+- `dining_name`：店铺所在的餐厅的名称
+
+### `GET /api/get_blindbox`
+
+一个用于获取盲盒与推荐菜单的接口
+
+#### 请求参数
+
+- `x-wx-openid`：微信 OpenID
+
+#### 响应结果
+
+- `food_relate_randlist`：一个包含二十道推荐菜品组合的二维数组
+
+#### 结果说明
+
+结果为二维数组，可以通过
+
+- `food_relate_randlist[i]`来调用第 i 个菜品组合
+
+在第二维度上：
+
+- `food_relate_randlist[i][0]`：代表该组合所属店铺
+- `food_relate_randlist[i][1]`：组合内主食的 id
+- `food_relate_randlist[i][2]`：组合内主食的名称
+- `food_relate_randlist[i][3]`：组合内主食的价格
+- `food_relate_randlist[i][4]`：组合内副食的 id
+- `food_relate_randlist[i][5]`：组合内副食的名称
+- `food_relate_randlist[i][6]`：组合内副食的价格
+- `food_relate_randlist[i][7]`：组合内饮品的 id
+- `food_relate_randlist[i][8]`：组合内饮品的名称
+- `food_relate_randlist[i][9]`：组合内饮品的价格
+- `food_relate_randlist[i][10]`：组合的综合打分
+
+### `GET /api/get_food_degree`
+
+一个用于获取菜品评分的接口
+
+#### 请求参数
+
+- `foodid`：要查询评分的食物的 id
+
+#### 响应结果
+
+- `fooddegree`：一个包含食物评分的键值对
+
+#### 结果说明
+
+- `food_degree`：食物的评分
+
+### `GET /api/getfoodprice`
+
+用于请求食物价格的接口
+
+#### 请求参数
+
+- `foodid`：要查询评分的食物的 id
+
+#### 响应结果
+
+- `find_price`：一个包含食物价格的键值对
+
+#### 结果说明
+
+- `food_price`：食物的价格
+
 ## License
 
 [MIT](./LICENSE)
