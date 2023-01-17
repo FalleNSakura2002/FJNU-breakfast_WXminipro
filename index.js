@@ -642,6 +642,9 @@ app.get("/api/get_blindbox", async (req, res) => {
   //获取用户的口味
   var user_info = await user_flavor.findOne({
     attributes: ["user_dgof_salt", "user_series", "user_bedroom"],
+    where: {
+      user_id: userid,
+    },
   });
 
   //获取主食清单与主食的详细信息
@@ -685,6 +688,7 @@ app.get("/api/get_blindbox", async (req, res) => {
       attributes: ["order_date", "food_name", "food_id"],
       where: {
         order_date: order_date[i].dataValues.order_date,
+        user_id: userid,
       },
     });
     order_threedays.push(orderdate);
