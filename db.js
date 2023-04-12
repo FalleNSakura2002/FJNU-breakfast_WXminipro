@@ -21,7 +21,7 @@ const {
 
 const [host, port] = MYSQL_ADDRESS.split(":");
 
-const sequelize = new Sequelize("htmlpro3", "root", "FALLcanyue2001", {
+const sequelize = new Sequelize("htmlpro3", "root", "password", {
   host,
   port,
   dialect: "mysql",
